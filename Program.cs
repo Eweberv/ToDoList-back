@@ -10,13 +10,10 @@ builder.WebHost.UseUrls("http://0.0.0.0:5220");
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontendOrigin",
+    options.AddPolicy("AllowAll",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-            policy.WithOrigins("http://34.247.6.140:5173")
+            policy.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
