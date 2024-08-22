@@ -54,7 +54,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors("AllowFrontendOrigin");
+app.UseCors("AllowAll");
 
 if (app.Environment.IsDevelopment())
 {
