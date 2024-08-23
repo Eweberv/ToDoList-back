@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>ToDoList_back</RootNamespace>
+		<AssemblyName>ToDoList-back</AssemblyName>
     </PropertyGroup>
 	
 	<PropertyGroup>
