@@ -8,9 +8,8 @@
     </PropertyGroup>
 	
 	<PropertyGroup>
-		<ContainerImageName>ToDo-List-Back</ContainerImageName>
+		<ContainerImageName>todo-list-back</ContainerImageName>
 		<ContainerImageTags>latest</ContainerImageTags>
-		<PublishProfile>DefaultContainer</PublishProfile>
 		<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
