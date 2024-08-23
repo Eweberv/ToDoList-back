@@ -6,6 +6,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>ToDoList_back</RootNamespace>
     </PropertyGroup>
+	
+	<PropertyGroup>
+		<ContainerImageName>ToDo-List-Back</ContainerImageName>
+		<ContainerImageTags>latest</ContainerImageTags>
+		<PublishProfile>DefaultContainer</PublishProfile>
+		<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+	</PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
