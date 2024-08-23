@@ -6,7 +6,7 @@ using TodoList_back.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseUrls("http://0.0.0.0:5220");
+builder.WebHost.UseUrls("http://0.0.0.0:5220", "https://0.0.0.0:443)");
 
 builder.Services.AddCors(options =>
 {
@@ -41,8 +41,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "http://localhost",
-            ValidAudience = "http://localhost",
+            ValidIssuer = "https://todolist.api.victorweber.fr",
+            ValidAudience = "https://todolist.api.victorweber.fr",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
