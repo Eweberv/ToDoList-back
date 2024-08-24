@@ -6,19 +6,6 @@ using TodoList_back.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseKestrel(opt =>
-{
-    opt.ListenAnyIP(5220);
-
-    opt.ListenAnyIP(443, listenOpt =>
-    {
-        listenOpt.UseHttps(
-            "/etc/letsencrypt/live/todolist.api.victorweber.fr/fullchain.pem", 
-            "/etc/letsencrypt/live/todolist.api.victorweber.fr/privkey.pem"
-        );
-    });
-});
-
 builder.WebHost.UseUrls("http://0.0.0.0:5220", "https://0.0.0.0:443");
 
 builder.Services.AddCors(options =>
