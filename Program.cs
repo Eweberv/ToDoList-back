@@ -6,7 +6,8 @@ using TodoList_back.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseUrls("http://0.0.0.0:5220", "https://0.0.0.0:443");
+builder.WebHost.UseUrls("http://0.0.0.0:5220");
+
 
 builder.Services.AddCors(options =>
 {
