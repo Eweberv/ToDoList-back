@@ -42,7 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "https://todolist.api.victorweber.fr",
+            ValidIssuer = "https://api.todolist.victorweber.fr",
             ValidAudience = "https://todo-list-app-vw.netlify.app",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
