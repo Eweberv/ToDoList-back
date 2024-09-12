@@ -1,13 +1,16 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using TodoList_back.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseUrls("http://0.0.0.0:5220");
-
+builder.WebHost.ConfigureKestrel((context, options) =>
+{
+    options.Configure(context.Configuration.GetSection("Kestrel"));
+});
 
 builder.Services.AddCors(options =>
 {
@@ -24,7 +27,6 @@ var Configuration = builder.Configuration;
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
-// Configuration JWT
 var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
 var jwtKey = builder.Configuration.GetSection("Jwt:Key").Get<string>();
 
@@ -33,8 +35,13 @@ if (string.IsNullOrEmpty(jwtIssuer) || string.IsNullOrEmpty(jwtKey))
     throw new ArgumentNullException($"Jwt configuration is missing in appsettings.json");
 }
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -42,10 +49,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "https://api.todolist.victorweber.fr",
-            ValidAudience = "https://todo-list-app-vw.netlify.app",
+            ValidIssuer = jwtIssuer,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
+    })
+    .AddCookie()
+    .AddGoogle(GoogleDefaults.AuthenticationScheme, options  =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
     });
 
 builder.Services.AddControllers();

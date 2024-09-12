@@ -18,5 +18,7 @@ namespace TodoList_back.Models
         
         [Required]
         public string Password { get; set; }
+        [Required]
+        public string AuthProvider { get; set; }
     }
 }
